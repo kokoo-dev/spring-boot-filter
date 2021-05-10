@@ -1,5 +1,7 @@
 package com.example.filter;
 
+import com.example.filter.xss.XssDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ class SpringBootFilterApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
 	@Test
 	void testXssFilterGet() throws Exception {
 		String param = "<alert>alert!</alert>";
@@ -41,6 +46,21 @@ class SpringBootFilterApplicationTests {
 				.param("msg", param))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print());
+	}
+
+	@Test
+	void testXssFilterRequestBody() throws Exception {
+		String param = "<alert>alert!</alert>";
+		logger.info("testXssFilterRequestBody Start!");
+
+		String content = objectMapper.writeValueAsString(new XssDto(param));
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/xssRequestBody")
+				.content(content)
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(MockMvcResultHandlers.print());
+
 	}
 
 }
