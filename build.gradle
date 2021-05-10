@@ -1,0 +1,33 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+configurations{
+	all{
+//		logback 설정 제외
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
+
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3'
+}
+
+test {
+	useJUnitPlatform()
+}
