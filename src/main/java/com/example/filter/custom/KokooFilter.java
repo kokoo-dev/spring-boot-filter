@@ -38,6 +38,6 @@ public class KokooFilter implements Filter {
 
     @Override
     public void destroy() {
-        logger.info("Init KokooFilter!");
+        logger.info("Destroy KokooFilter!");
     }
 }
