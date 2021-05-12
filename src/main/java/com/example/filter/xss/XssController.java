@@ -20,8 +20,17 @@ public class XssController {
     public String xssRequestBody(@RequestBody XssDto xssDto){
         //DTO를 RequestBody로 받을 땐 No Argument Constructor 필요
         //RequestBody의 경우 xss필터 적용 안됨
-        logger.info("Print msg :: " + xssDto.getName());
+        logger.info("Print name :: " + xssDto.getName());
+        logger.info("Print script :: " + xssDto.getScript());
 
         return xssDto.getName();
+    }
+
+    @RequestMapping("/test.kf")
+    public String kokooFilter(String data1, String data2){
+        logger.info("Print data1 :: " + data1);
+        logger.info("Print data2 :: " + data2);
+
+        return data1 + " " + data2;
     }
 }

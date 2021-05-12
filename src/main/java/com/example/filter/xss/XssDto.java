@@ -11,4 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class XssDto {
     private String name;
+    private String script;
 }

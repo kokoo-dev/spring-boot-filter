@@ -50,10 +50,11 @@ class SpringBootFilterApplicationTests {
 
 	@Test
 	void testXssFilterRequestBody() throws Exception {
-		String param = "<alert>alert!</alert>";
+		String name = "DTO 테스트 데이터";
+		String script = "<alert>alert!</alert>";
 		logger.info("testXssFilterRequestBody Start!");
 
-		String content = objectMapper.writeValueAsString(new XssDto(param));
+		String content = objectMapper.writeValueAsString(new XssDto(name, script));
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/xssRequestBody")
 				.content(content)
